@@ -25,11 +25,12 @@ class ProductController extends Controller
         $categories = Category::all();
         $sub_categories = SubCategory::all();
         $products = Product::all();
-        return view('products.productsUser' ,compact('products','categories' ,'sub_categories'));
+        return view('products.product' ,compact('products','categories' ,'sub_categories'));
     }
 
-    public function showProducts()
+    public function productsUser()
     {
+        echo 'show product';die;
         $products = Product::all();
         return view('products.productsUser' ,compact('products'));
     }
@@ -105,7 +106,7 @@ class ProductController extends Controller
 
            
                 
-        session()->flash('Add' , 'Add Product Success');
+        session()->flash('Add');
         return redirect('/products');    
     }
 
@@ -166,7 +167,7 @@ class ProductController extends Controller
             'sub_category_id' => $sub_category_id
         ]);
 
-        session()->flash('Edit' , 'Edit Product Success');
+        session()->flash('Edit');
         return redirect('/products');
     }
 
@@ -179,7 +180,7 @@ class ProductController extends Controller
     public function destroy(Request $request)
     {
         Product::find($request->id)->delete();
-        session()->flash('Delete' , 'Product Deleted Success');
+        session()->flash('Delete');
         return redirect('/products');
     }
 }

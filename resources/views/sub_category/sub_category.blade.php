@@ -84,8 +84,11 @@
                 <div class="card-body">
                     <div class="table-responsive hoverable-table">
                         <div class="col-12 ">
+
+                            @can('subCategory_create')
                             <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                                data-toggle="modal" href="#modaldemo8">Add SubCategory</a>
+                            data-toggle="modal" href="#modaldemo8">Add SubCategory</a>
+                            @endcan
                         </div>
                         <table id="example-delete" class="table text-md-nowrap">
                             <thead>
@@ -101,30 +104,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sub_categories as $sub_category)
-                                    <tr>
-                                        <td>{{ $sub_category->id }}</td>
-                                        <td>{{ $sub_category->name }}</td>
-                                        <td>{{ $sub_category->describtion }}</td>
-                                        <td>{{ $sub_category->image }}</td>
-                                        <td>{{ $sub_category->status }}</td>
-                                        <td>{{ $sub_category->category->name }}</td>
-                                        <td>
-                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $sub_category->id }}" data-name="{{ $sub_category->name }}"
-                                                data-describtion="{{ $sub_category->describtion }}" data-category_name="{{ $sub_category->category->name }}"
-                                                data-image="{{ $sub_category->image }}" data-status="{{ $sub_category->status }}"
-                                                data-toggle="modal" href="#modaldemo9" title="Edit"><i
-                                                    class="las la-pen"></i></a>
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $sub_category->id }}" data-name="{{ $sub_category->name }}"
-                                                data-toggle="modal" href="#modaldemo7" title="Delete"><i
-                                                    class="las la-trash"></i></a>
-                                        </td>
-                                        <td>{{ $sub_category->created_by }}</td>
-                                    </tr>
+                                @can('subCategory_list')
+                                @foreach ($sub_categories as $sub_category)
+                                <tr>
+                                    <td>{{ $sub_category->id }}</td>
+                                    <td>{{ $sub_category->name }}</td>
+                                    <td>{{ $sub_category->describtion }}</td>
+                                    <td>{{ $sub_category->image }}</td>
+                                    <td>{{ $sub_category->status }}</td>
+                                    <td>{{ $sub_category->category->name }}</td>
+                                    <td>
+                                @can('subCategory_edit')
+                                    <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                    data-id="{{ $sub_category->id }}" data-name="{{ $sub_category->name }}"
+                                    data-describtion="{{ $sub_category->describtion }}" data-category_name="{{ $sub_category->category->name }}"
+                                    data-image="{{ $sub_category->image }}" data-status="{{ $sub_category->status }}"
+                                    data-toggle="modal" href="#modaldemo9" title="Edit"><i
+                                    class="las la-pen"></i></a>
+                                @endcan
+
+                                @can('subCategory_delete')
+                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                    data-id="{{ $sub_category->id }}" data-name="{{ $sub_category->name }}"
+                                    data-toggle="modal" href="#modaldemo7" title="Delete"><i
+                                    class="las la-trash"></i></a>
+                                @endcan
+                            </td>
+                                    <td>{{ $sub_category->created_by }}</td>
+                                </tr>
                                 @endforeach
+                                @endcan
 
                             </tbody>
                         </table>

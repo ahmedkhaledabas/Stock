@@ -83,8 +83,12 @@
                             <div class="row">
                                 <div class="col-sm-8"><h2>Category <b>Details</b></h2></div>
                                 <div class="col-sm-4">
+
+                                    @can('category_create')
                                     <a class="modal-effect btn btn-info add-new" data-effect="effect-scale"
                                     data-toggle="modal" href="#modaldemo8"><i class="fa fa-plus"></i> Add New Category</a>
+                                    @endcan
+
                                 </div>
                             </div>
                         </div>
@@ -101,6 +105,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+                                @can('category_list')
                                 @foreach ($categories as $category)
                                     <tr>
                                         <td>{{ $category->id }}</td>
@@ -110,18 +116,24 @@
                                         <td>{{ $category->status }}</td>
                                         <td>{{ $category->created_by }}</td>
                                         <td>
-                                            <a class="edit" title="Edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                                data-describtion="{{ $category->describtion }}"
-                                                data-image="{{ $category->image }}" data-status="{{ $category->status }}"
-                                                data-toggle="modal" href="#modaldemo9">
-                                                <i class="material-icons">&#xE254;</i></a>
-
-                                            <a class="delete" title="Delete" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                                data-toggle="modal" href="#modaldemo7"><i class="material-icons">&#xE872;</i></a>
+                                        @can('category_edit')
+                                        <a class="edit" title="Edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
+                                            data-describtion="{{ $category->describtion }}"
+                                            data-image="{{ $category->image }}" data-status="{{ $category->status }}"
+                                            data-toggle="modal" href="#modaldemo9">
+                                            <i class="material-icons">&#xE254;</i></a>
+                                        @endcan
+                                        
+                                        @can('category_delete')  
+                                        <a class="delete" title="Delete" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
+                                            data-toggle="modal" href="#modaldemo7"><i class="material-icons">&#xE872;</i></a>
+                                        @endcan
                                         </td>
                                         
                                     </tr>
                                 @endforeach
+                                @endcan
+
                             </tbody>
                         </table>
                     </div>

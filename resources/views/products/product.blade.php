@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 <link href="{{ URL::asset('assets/css/product.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
@@ -35,42 +36,44 @@
 
 
 <!-- success message add product -->
-<div class="col-xl-12">
-	@if (session()->has('Add'))
-	<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-		<strong>{{ session()->get('Add') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	@endif
-</div>
+	
+@if (session()->has('Add'))
+    <script>
+        window.onload = function() {
+            notif({
+                msg: "Product Added successfully",
+                type: "success"
+            });
+        }
+    </script>
+@endif
+
 <!-- End success message add product -->
 
 <!-- success message edit product -->
-<div class="col-xl-12">
-	@if (session()->has('Edit'))
-	<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-		<strong>{{ session()->get('Edit') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	@endif
-</div>
+@if (session()->has('Edit'))
+    <script>
+        window.onload = function() {
+            notif({
+                msg: "Product updated successfully",
+                type: "success"
+            });
+        }
+    </script>
+@endif
 <!-- End success message edit product -->
 
 <!-- success message Delete product -->
-<div class="col-xl-12">
-	@if (session()->has('Delete'))
-	<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-		<strong>{{ session()->get('Delete') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	@endif
-</div>
+@if (session()->has('Delete'))
+    <script>
+        window.onload = function() {
+            notif({
+                msg: "Product deleted successfully",
+                type: "error"
+            });
+        }
+    </script>
+@endif
 <!-- End success message Delete product -->
 
 				<!-- row -->
@@ -81,9 +84,12 @@
 									<div class="table-title">
 										<div class="row">
 											<div class="col-sm-8"><h2>Product <b>Details</b></h2></div>
+
 											<div class="col-sm-4">
+												@can('product_create')
 												<a class="modal-effect btn btn-info add-new" data-effect="effect-scale"
 												data-toggle="modal" href="#modaldemo8"><i class="fa fa-plus"></i> Add New Product</a>
+												@endcan
 											</div>
 										</div>
 									</div>
@@ -104,6 +110,8 @@
 											</tr>
 										</thead>
 										<tbody>
+
+											@can('product_list')
 											@foreach ($products as $product)
 											<tr>
 												<td>{{$product->id}}</td>
@@ -117,6 +125,8 @@
 												<td>{{$product->subCategory->name}}</td>
 												<td>{{$product->created_by}}</td>
 												<td>
+													
+													@can('product_edit')
 													<a class="edit" title="Edit" data-id="{{$product->id}}" data-name="{{$product->name}}" 
 														data-image="{{$product->image}}" data-status="{{$product->status}}" data-price="{{$product->price}}"
 														data-quantity="{{$product->quantity}}" data-created_by="{{$product->created_by}}" 
@@ -124,12 +134,19 @@
 														data-sub_category_name="{{ $product->subCategory->name }}"
 														data-toggle="modal" href="#modaldemo9">
 														<i class="material-icons">&#xE254;</i></a>
+														@endcan
+														
+														@can('product_delete')
+														<a class="delete" title="Delete" data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+															data-toggle="modal" href="#modaldemo7"><i class="material-icons">&#xE872;</i></a>
+															@endcan
+															
+														</td>
+													</tr>
+													@endforeach 
+													
+													@endcan
 
-													<a class="delete" title="Delete" data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-														data-toggle="modal" href="#modaldemo7"><i class="material-icons">&#xE872;</i></a>
-												</td>
-											</tr>
-											@endforeach 
 										</tbody>
 									</table>
 								</div>
@@ -344,6 +361,10 @@
         })
     </script>
     <!--End edit product js -->
+
+<!--Internal  Notify js -->
+<script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+<script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
 
     <!--Delete product js -->
     <script>
