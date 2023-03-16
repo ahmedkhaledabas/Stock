@@ -14,6 +14,8 @@ All Users
 <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
 <!--Internal   Notify -->
 <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
+<link href="{{ URL::asset('assets/css/product.css') }}" rel="stylesheet">
+
 
 @endsection
 @section('page-header')
@@ -60,6 +62,7 @@ All Users
                                 <th class="wd-10p border-bottom-0">No</th>
                                 <th class="wd-15p border-bottom-0">User name </th>
                                 <th class="wd-20p border-bottom-0">Email </th>
+                                <th class="wd-20p border-bottom-0">Image </th>
                                 <th class="wd-15p border-bottom-0">Status </th>
                                 <th class="wd-15p border-bottom-0">User Type </th>
                                 <th class="wd-10p border-bottom-0">Actions</th>
@@ -71,6 +74,8 @@ All Users
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td><img class="imageuser" src="Images/users/{{ $user->image }}" alt=""></td>
+
                                     <td>
                                         @if ($user->status == 1)
                                             <span class="label text-success d-flex">

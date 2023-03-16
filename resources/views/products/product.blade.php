@@ -99,7 +99,6 @@
 												<th>ID</th>
 												<th>Name</th>
 												<th>Image</th>
-												<th>Details</th>
 												<th>Price</th>
 												<th>Quantity</th>
 												<th>Status</th>
@@ -117,7 +116,6 @@
 												<td>{{$product->id}}</td>
 												<td>{{$product->name}}</td>
 												<td><img class="imageuser" src="Images/users/{{ $product->image }}" alt=""></td>
-												<td>{{$product->details}}</td>
 												<td>{{$product->price}}</td>
 												<td>{{$product->quantity}}</td>
 												<td>{{$product->status}}</td>
@@ -199,11 +197,11 @@
 														<input type="text" class="form-control" name="name" id="name" required>
 													</div>
 													<div class="form-group">
-														<label for="describtion"> Product Image : </label>
+														<label for="image"> Product Image : </label>
 														<input type="file" class="form-control" name="image" id="image" required>
 													</div>
 													<div class="form-group">
-														<label for="image">Product Detailes : </label>
+														<label for="details">Product Detailes : </label>
 														<input type="text" class="form-control" name="details" id="details">
 													</div>
 													<div class="d-flex justify-content-between">

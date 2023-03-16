@@ -3,9 +3,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Models\Images\UsersImages;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -55,19 +57,38 @@ return view('users.Add_user',compact('roles'));
 
 public function store(Request $request)
 {
+    // return $request;die;
 $this->validate($request, [
 'name' => 'required',
 'email' => 'required|email|unique:users,email',
+'phone' => 'required|max:11',
 'password' => 'required|same:confirm-password',
 'roles_name' => 'required'
 ]);
+ 
+$file_extension = $request->image->getClientOriginalExtension();
+        $file_name =time().'.'.$file_extension;
+        $path = 'Images/users';
+        $request->image->move($path , $file_name );
 
-$input = $request->all();
 
-$input['password'] = Hash::make($input['password']);
+$user = User::create([
+    'name' => $request->name,
+    'email' => $request->email,
+    'phone' => $request->phone,
+    'roles_name'=>$request->roles_name,
+    'password' => Hash::make($request->password) ,
+    'image' => $file_name,
+    'status'=>$request->status
+]);
+UsersImages::create([
+    'name' => $request->image,
+    'user_id'=>(Auth::user()->id)
 
-$user = User::create($input);
-$user->assignRole($request->input('roles_name'));
+]);
+
+$user->assignRole($request->roles_name);
+
 return redirect()->route('users.index')
 ->with('success','User Add Success');
 }

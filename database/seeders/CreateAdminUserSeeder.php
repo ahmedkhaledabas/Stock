@@ -22,6 +22,8 @@ class CreateAdminUserSeeder extends Seeder
         'name' => 'Ahmed Khaled', 
         'email' => 'ahmedkhaled@yahoo.com',
         'password' => bcrypt('123456'),
+        'phone' => '01112131415',
+        'verification_code' =>'878a',
         'roles_name' => ["owner"] ,
        
         ]);

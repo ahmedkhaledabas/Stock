@@ -6,6 +6,7 @@
     <!-- Internal Data table css -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="{{ URL::asset('assets/css/sub_category.css') }}" rel="stylesheet">
@@ -117,16 +118,18 @@
                                         <td>{{ $category->created_by }}</td>
                                         <td>
                                         @can('category_edit')
-                                        <a class="edit" title="Edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
+                                        <a class="modal-effect btn btn-sm btn-info" title="Edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
                                             data-describtion="{{ $category->describtion }}"
                                             data-image="{{ $category->image }}" data-status="{{ $category->status }}"
                                             data-toggle="modal" href="#modaldemo9">
-                                            <i class="material-icons">&#xE254;</i></a>
+                                            <i
+                                    class="las la-pen"></i></a>
                                         @endcan
                                         
                                         @can('category_delete')  
-                                        <a class="delete" title="Delete" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                            data-toggle="modal" href="#modaldemo7"><i class="material-icons">&#xE872;</i></a>
+                                        <a class="modal-effect btn btn-sm btn-danger" title="Delete" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
+                                            data-toggle="modal" href="#modaldemo7"><i
+                                            class="las la-trash"></i></a>
                                         @endcan
                                         </td>
                                         

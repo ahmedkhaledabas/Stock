@@ -59,6 +59,10 @@ Route::resource('users' , UserController::class);
 
 Route::get('/users/edit' ,[UserController::class , 'edit']);
 
+Route::get('/ProductDetails/{id}' , [ProductController::class , 'show']);
+Route::get('/read_all' , [ProductController::class , 'readAll']);
+
+
 
 //categories route
 Route::resource('category' , CategoryController::class);

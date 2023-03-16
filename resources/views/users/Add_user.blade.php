@@ -49,7 +49,7 @@ Add User
                     </div>
                 </div><br>
                 <form class="parsley-style-1" id="selectForm2" autocomplete="off" name="selectForm2"
-                    action="{{route('users.store','test')}}" method="post">
+                    action="{{route('users.store','test')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
 
                     <div class="">
@@ -83,6 +83,19 @@ Add User
                                 name="confirm-password" required="" type="password">
                         </div>
                     </div>
+                    <div class="row mg-b-20">
+                        <div class="form-group parsley-input col-md-6 mg-t-20 mg-md-t-0">
+                            <label for="image"> Image : </label>
+                            <input type="file" class="form-control" name="image" id="image" required>
+                        </div>
+
+                        <div class="form-group parsley-input col-md-6 mg-t-20 mg-md-t-0">
+                            <label for="phone"> Phone : </label>
+                            <input type="text" class="form-control" name="phone" id="phone" required>
+                        </div>
+                    </div>
+
+                    
 
                     <div class="row row-sm mg-b-20">
                         <div class="col-lg-6">

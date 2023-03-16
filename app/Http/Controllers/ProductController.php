@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Notifications\AddProduct;
+use App\Models\User;
 use App\Models\Images\UsersImages;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 
@@ -73,7 +76,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
         // return $request;die;
         $validated = $request->validate([
             'name' => 'required|string|unique:products|max:255',
@@ -88,6 +90,7 @@ class ProductController extends Controller
         $path = 'Images/users';
         $request->image->move($path , $file_name );
 
+
             Product::create([
                 'name' => $request->name,
                 'details' => $request->details,
@@ -98,13 +101,20 @@ class ProductController extends Controller
                 'category_id' => $request->category_id,
                 'sub_category_id' => $request->sub_category_id
             ]);
+
+            //safe image in database
             UsersImages::create([
                 'name' => $request->image,
                 'user_id'=>(Auth::user()->id)
 
             ]);
 
-           
+            //notification
+           $user = User::where('id' ,'1' )->get();
+            
+        //    return (Auth::user()->image) ;die;
+           $product = Product::latest()->first();
+           Notification::send($user, new AddProduct($product));
                 
         session()->flash('Add');
         return redirect('/products');    
@@ -116,11 +126,22 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show()
+
+    public function show($id)
     {
-        
+        $products = Product::where('id',$id)->get();
+        $product = $products[0];
+        // return "Images/users/$product->image" ;die;
+        return view('products.product-details',compact('product'));
     }
 
+    public function readAll(){
+        $userUnreadNotification =auth()->user()->unreadNotifications;
+        if($userUnreadNotification){
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -180,7 +201,7 @@ class ProductController extends Controller
     public function destroy(Request $request)
     {
         Product::find($request->id)->delete();
-        session()->flash('Delete');
+        session()->flash('Delete ttt');
         return redirect('/products');
     }
 }

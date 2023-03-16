@@ -13,7 +13,7 @@ Home
 				<div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
-						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
+						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back &nbsp; <span class="text-info h1">{{ Auth::user()->name }}</span></h2>
 						  <p class="mg-b-0">Sales monitoring dashboard template.</p>
 						</div>
 					</div>
@@ -26,11 +26,11 @@ Home
 						</div>
 						<div>
 							<label class="tx-13">Online Sales</label>
-							<h5>563,275</h5>
+							<h5 class="text-center">{{ App\Models\User::where('status' , 1)->count() }}</h5>
 						</div>
 						<div>
 							<label class="tx-13">Offline Sales</label>
-							<h5>783,675</h5>
+							<h5 class="text-center">{{ App\Models\User::where('status' , "0")->count() }}</h5>
 						</div>
 					</div>
 				</div>
@@ -145,13 +145,15 @@ Home
 						<div class="card">
 							
 							<div class="card-body">
-
+								<h3>Products </h3>
+								{!! showCharts2()->render() !!}
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-12 col-xl-5">
 						<div class="card card-dashboard-map-one">
-							{{-- {!! $chartjs_round->render() !!} --}}
+							<h3>Users </h3>
+							{!! showCharts()->render() !!}
 						</div>
 					</div>
 				</div>

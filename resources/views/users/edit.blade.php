@@ -76,6 +76,19 @@ Edit User
                     </div>
                 </div>
 
+                <div class="row mg-b-20">
+                    <div class="form-group parsley-input col-md-6 mg-t-20 mg-md-t-0">
+                        <label for="image"> Image : </label>
+                        <input type="file" class="form-control" name="image" id="image"  >
+                    </div>
+
+                    <div class="form-group parsley-input col-md-6 mg-t-20 mg-md-t-0">
+                        <label for="phone"> Phone : </label>
+                        <input type="text" class="form-control" name="phone" id="phone" value=
+                        "{{ $user->phone }}" >
+                    </div>
+                </div>
+
                 <div class="row row-sm mg-b-20">
                     <div class="col-lg-6">
                         <label class="form-label">Status : </label>
